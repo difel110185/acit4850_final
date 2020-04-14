@@ -32,7 +32,7 @@ pipeline {
                 sh 'ls *.py | wc -l'
             }
         }
-        stage('Test List and Coverage') {
+        stage('Test') {
             when {
                 expression {params.TEST}
             }
@@ -43,6 +43,12 @@ pipeline {
                         sh "python3 " + test.getPath()
                     }
                 }
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'zip -R output "*.py"'
+                archiveArtifacts artifacts: 'output.zip', fingerprint: true
             }
         }
     }
