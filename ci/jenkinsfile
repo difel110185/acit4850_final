@@ -32,5 +32,18 @@ pipeline {
                 sh 'ls *.py | wc -l'
             }
         }
+        stage('Test List and Coverage') {
+            when {
+                expression {params.TEST}
+            }
+            steps {
+                script {
+                    def testResults = findFiles(glob: 'test*.py')
+                    for(test in testResults) {
+                        sh "python3 " + test.getPath()
+                    }
+                }
+            }
+        }
     }
 }
