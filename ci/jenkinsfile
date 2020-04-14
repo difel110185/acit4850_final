@@ -1,0 +1,26 @@
+// Author: Diego Felix de Almeida
+// Date: April 14, 2020
+// Description: This is the pipeline requested in the last question of ACIT4850 final. It has five stages:
+// - Build that prints the text "Installing the Requirements..." to the console, then runs the requirements.txt file to bring in the required Python package dependencies and final prints the text "Requirement complete.".
+// - Code Quality that runs Python Lint (i.e., pylint-fail-under) on all 3 Python files (note: filenames should NOT be hard-coded). The code must pass a score of 5 or more to pass.
+// - Code Quantity that counts and prints to the console the number of Python files in the project (value output should be 3). See hint below.
+// - Test that runs the test_book_manager.py unit test script only if the string parameter called TEST is set to the value "test".
+// - Package that creates a zipfile called output.zip containing all the .py files in the project (8 files). The Python filenames should not be hard-coded. The zipfile should be made into a build artifact (i.e., it is available for download on the main Jenkins job page).
+
+pipeline {
+    agent any
+    
+    parameters {
+        booleanParam(defaultValue: "", description: 'Run Unit Tests', name: 'TEST')
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo "Installing the Requirements..."
+                sh 'pip install -r requirements.txt'
+                echo "Requirement complete."
+            }
+        }
+    }
+}
