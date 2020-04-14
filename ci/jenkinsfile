@@ -22,5 +22,10 @@ pipeline {
                 echo "Requirement complete."
             }
         }
+        stage('Code Quality') {
+            steps {
+                sh 'pylint-fail-under --fail_under 5.0 *.py'
+            }
+        }
     }
 }
