@@ -27,5 +27,10 @@ pipeline {
                 sh 'pylint-fail-under --fail_under 5.0 *.py'
             }
         }
+        stage('Code Quantity') {
+            steps {
+                sh 'ls *.{py} | wc -l'
+            }
+        }
     }
 }
